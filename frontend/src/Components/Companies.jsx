@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import CompanyCard from './CompanyCard';
+import SearchBar from './SearchBar';
 import JoblyApi from '../JoblyApi';
 
 function Companies(){
@@ -19,13 +20,15 @@ function Companies(){
     ))
 
     return(
-        <div className="Companies">
-            <h1>Companies</h1>
-            <div className="CompaniesList container d-flex flex-wrap">
-                {CompaniesList}
+        <>
+            <SearchBar />
+            <div className="Companies">
+                <h1>Companies</h1>
+                <div className="CompaniesList container d-flex flex-wrap">
+                    {CompaniesList}
+                </div>
             </div>
-        </div>
-
+        </>
     )
 }
 
