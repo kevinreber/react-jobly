@@ -1,11 +1,8 @@
-.CompanyCard{
-    /* width: 85%; */
-    margin: 1rem auto;
-    max-width: 320px;
-    height: 450px
+.CompanyCard:hover{
+    box-shadow: 0 0 1rem 0 goldenrod;
 }
 
 .CompanyCard img{
-    max-width: 200px;
+    max-width: 64px;
     margin: 1rem auto;
 }
