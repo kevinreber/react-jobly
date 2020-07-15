@@ -22,12 +22,8 @@ function Companies(){
         <div className="Companies">
             <h1>Companies</h1>
             <div className="CompaniesList container d-flex flex-wrap">
-            {/* <div className="row row-cols-sm-1 d-inline"> */}
-                {/* <div className="col"> */}
                 {CompaniesList}
-                {/* </div> */}
-            {/* </div> */}
-        </div>
+            </div>
         </div>
 
     )
