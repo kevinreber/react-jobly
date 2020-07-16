@@ -15,18 +15,30 @@ function Companies(){
         getData();
     }, [])
 
+    /** On submit, passes values in SearchBar to API call. 
+     *  On the backend we have filter query that will handle our search.
+    */
+    const handleSearch = async (search) => {
+        const results = await JoblyApi.getCompanies(search);
+        setCompanies(results);
+    }
+
+    /** Build a Card to display each Company */
     const CompaniesList = companies.map(company => (
         <CompanyCard company={company} />
     ))
-
+    
     return(
         <>
-            <SearchBar />
+            <SearchBar searchFor={handleSearch}/>
             <div className="Companies">
                 <h1>Companies</h1>
-                <div className="CompaniesList container d-flex flex-wrap">
-                    {CompaniesList}
-                </div>
+                {companies.length === 0 ? <p>No companies match search</p> :
+                    <div className="CompaniesList container d-flex flex-wrap">
+                        {CompaniesList}
+                    </div>
+                 }
+
             </div>
         </>
     )

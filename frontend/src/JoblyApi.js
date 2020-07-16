@@ -27,8 +27,11 @@ class JoblyApi {
       }
     }
   
-    static async getCompanies(){
-      let res = await this.request('companies');
+    static async getCompanies(search){
+      /** On the backend, our `Company` model has a query that filters
+       * the data we receive back, if `search` is passed into the parameters
+      */
+      let res = await this.request('companies', { search });
       return res.companies;
     }
 
