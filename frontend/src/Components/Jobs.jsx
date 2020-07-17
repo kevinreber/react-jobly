@@ -1,11 +1,37 @@
-import React from 'react';
-import { Redirect, useParams } from "react-router-dom";
+import React, {useState, useEffect} from 'react';
+import JobCard from './JobCard';
+import SearchBar from './SearchBar';
+import JoblyApi from '../JoblyApi';
 
 function Jobs(){
+    const [jobs, setJobs] = useState([]);
+
+    useEffect( () => {
+        /** Get all Jobs Data */
+        const getData = async () => {
+            const results = await JoblyApi.getJobs();
+            setJobs(results);
+        }
+        getData();
+    }, [])
+
+    /** Build a Card to display each Job */
+    const JobsList = jobs.map(job => (
+        <JobCard job={job} />
+    ))
+
     return(
-        <div className="Jobs">
-            <h1>Jobs</h1>
-        </div>
+        <>
+            <SearchBar/>
+            <div className="Jobs">
+                <h1>Jobs</h1>
+                {jobs.length === 0 ? <p>No jobs match search</p> :
+                    <div className="JobsList container d-flex flex-wrap">
+                        {JobsList}
+                    </div>
+                 }
+            </div>
+        </>
     )
 }
 
