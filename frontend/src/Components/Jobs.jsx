@@ -15,14 +15,19 @@ function Jobs(){
         getData();
     }, [])
 
+    const handleSearch = async (search) =>{
+       const results = await JoblyApi.getJobs(search);
+       setJobs(results);
+    }
+
     /** Build a Card to display each Job */
     const JobsList = jobs.map(job => (
         <JobCard job={job} />
     ))
-
+    
     return(
         <>
-            <SearchBar/>
+            <SearchBar searchFor={handleSearch} />
             <div className="Jobs">
                 <h1>Jobs</h1>
                 {jobs.length === 0 ? <p>No jobs match search</p> :
