@@ -2,6 +2,16 @@ import React, { useState } from 'react';
 
 function Login(){
 
+    /** Initial State for Form */
+    const INITIAL_FORM_DATA = {
+        username: "",
+        password: "",
+        first_name: "",
+        last_name: "",
+        email: ""
+    }
+
+    const [ formData, setFormData ] = useState(INITIAL_FORM_DATA);
     const [ activeView, setActiveView ] = useState('login');
     let loginActive = activeView === 'login';
 
@@ -17,39 +27,50 @@ function Login(){
     function toggleSignupView(){
         toggleView('signup');
     }
+    /** *********************************** */
+
+    /** Handle's form changes */
+    function handleChange(e){
+        /** get 'name' and 'value' of 'e.target' */
+        const { name, value } = e.target;
+        /** Update 'formData' */
+        setFormData( fData => ({
+            ...fData, [name]: value
+        }));
+    }
 
     /** Sign Up Fields */
     const signupFields = (
-         <div>
-         <div className="form-group">
-              <label>First name</label>
-              <input
-              name="first_name"
-              className="form-control"
-              // value={this.state.first_name}
-              // onChange={this.handleChange}
-              />
+        <div>
+        <div className="form-group">
+            <label>First name</label>
+            <input
+                name="first_name"
+                className="form-control"
+                value={formData.first_name}
+                onChange={handleChange}
+            />
+    </div>
+    <div className="form-group">
+            <label>Last name</label>
+            <input
+                name="last_name"
+                className="form-control"
+                value={formData.last_name}
+                onChange={handleChange}
+            />
         </div>
         <div className="form-group">
-             <label>Last name</label>
-             <input
-             name="last_name"
-             className="form-control"
-             // value={this.state.last_name}
-             // onChange={this.handleChange}
-             />
-         </div>
-         <div className="form-group">
-             <label>Email</label>
-             <input
-             type="email"
-             name="email"
-              className="form-control"
-             // value={this.state.email}
-              // onChange={this.handleChange}
-              />
-         </div>
-         </div>
+            <label>Email</label>
+            <input
+                type="email"
+                name="email"
+                className="form-control"
+                value={formData.email}
+                onChange={handleChange}
+            />
+        </div>
+        </div>
     )
 
     /** Login Form */
@@ -61,8 +82,8 @@ function Login(){
             <input
                 name="username"
                 className="form-control"
-                // value={state.username}
-                // onChange={handleChange}
+                value={formData.username}
+                onChange={handleChange}
             />
             </div>
             <div className="form-group">
@@ -71,8 +92,8 @@ function Login(){
                 type="password"
                 name="password"
                 className="form-control"
-                // value={state.password}
-                // onChange={handleChange}
+                value={formData.password}
+                onChange={handleChange}
             />
             </div>
             {/* If user selects 'Sign Up', append 'signupFields' to form */}
