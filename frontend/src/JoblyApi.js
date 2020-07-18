@@ -26,7 +26,13 @@ class JoblyApi {
         throw Array.isArray(message) ? message : [message];
       }
     }
-  
+    
+    static async register(data){
+      let res = await this.request('users', data, 'post');
+      /** Store token that is received when registering new User */
+      return res.token;
+    }
+
     static async getCompanies(search){
       /** On the backend, our `Company` model has a query that filters
        * the data we receive back, if `search` is passed into the parameters

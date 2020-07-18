@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Alert from './Alert';
+import JoblyApi from '../JoblyApi';
 
 function Login(){
 
@@ -12,6 +14,7 @@ function Login(){
     }
 
     const [ formData, setFormData ] = useState(INITIAL_FORM_DATA);
+    const [ errors, setErrors ] = useState([]);
     const [ activeView, setActiveView ] = useState('login');
     let loginActive = activeView === 'login';
 
@@ -37,6 +40,21 @@ function Login(){
         setFormData( fData => ({
             ...fData, [name]: value
         }));
+    }
+
+    /** Handle submitting form data */
+    async function handleSubmit(e){
+        e.preventDefault();
+        let token;
+        try{
+            token = await JoblyApi.register(formData);
+        } catch (errors) {
+            /** if registering new user returns errors, 
+             * append to 'errors' state */
+            setErrors(err => [...err, errors]);
+        }
+
+        /** Store token into localStorage */
     }
 
     /** Sign Up Fields */
@@ -75,8 +93,7 @@ function Login(){
 
     /** Login Form */
     const LoginForm = (
-        <form>
-        {/* <form onSubmit={handleSubmit}> */}
+        <form onSubmit={handleSubmit}>
             <div className="form-group">
             <label>Username</label>
             <input
@@ -98,14 +115,14 @@ function Login(){
             </div>
             {/* If user selects 'Sign Up', append 'signupFields' to form */}
             {loginActive ? "" : signupFields}
-            {/* {state.errors.length ? ( */}
-            {/* <Alert type="danger" messages={state.errors} /> */}
-            {/* ) : null} */}
+            {/* Display any errors */}
+            {errors.length > 0 ? 
+                <Alert type="danger" messages={errors} />
+             : null}
 
             <button
-            type="submit"
-            className="btn btn-primary float-right"
-            //   onSubmit={handleSubmit}
+                type="submit"
+                className="btn btn-primary float-right"
             >
             Submit
             </button>
