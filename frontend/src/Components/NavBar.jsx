@@ -16,7 +16,11 @@ function NavBar(){
                     <NavLink className="nav-link" exact to="/profile">Profile</NavLink>
                 </li>
                 <li className="nav-item ml-4">
+                { localStorage.getItem('_token') ? 
                     <NavLink className="nav-link" exact to="/">Log Out</NavLink>
+                        : 
+                    <NavLink className="nav-link" exact to="/login">Log In</NavLink>
+                }
                 </li>
             </ul>
         </nav>

@@ -7,6 +7,7 @@ import Jobs from './Components/Jobs';
 import Job from './Components/Job';
 import Profile from './Components/Profile';
 import NavBar from './Components/NavBar';
+import Login from './Components/Login';
 import './App.css';
 
 function App() {
@@ -32,6 +33,9 @@ function App() {
         </Route>
         <Route exact path="/profile">
           <Profile />
+        </Route>
+        <Route exact path="/login">
+          <Login />
         </Route>
       </Switch>
       </main>
