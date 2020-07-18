@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import JobCard from './JobCard';
+import JobsCard from './JobsCard';
 import SearchBar from './SearchBar';
 import JoblyApi from '../JoblyApi';
 
@@ -22,7 +22,7 @@ function Jobs(){
 
     /** Build a Card to display each Job */
     const JobsList = jobs.map(job => (
-        <JobCard job={job} />
+        <JobsCard job={job} />
     ))
     
     return(

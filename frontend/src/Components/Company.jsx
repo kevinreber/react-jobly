@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import JobCard from './JobCard';
+import JobsCard from './JobsCard';
 import JoblyApi from '../JoblyApi';
 
 function Company(){
@@ -30,7 +30,7 @@ function Company(){
     /** Build `jobList` when loading company data is finished */
     if(!isLoading){
         jobList = company.jobs.map(job => (
-            <JobCard job={job} />
+            <JobsCard job={job} />
         ));
     }
 

@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import './JobsCard.css';
 
-function JobCard({job}){
+function JobsCard({job}){
     
     return(
         <div id={job.id} className="JobCard ml-auto mr-auto mb-3 p-1 card w-75">
+             <Link to={`/jobs/${job.id}`} >
             <h3 className="card-title">{job.title}</h3>
             <div className="card-body d-flex justify-content-between">
                 <div className="JobCard-Pay">
@@ -14,8 +17,9 @@ function JobCard({job}){
                     <button className="btn btn-danger">Apply</button>
                 </div>
             </div>
+            </Link>
         </div>
     )
 }
 
-export default JobCard;
+export default JobsCard;
