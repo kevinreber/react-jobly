@@ -51,7 +51,7 @@ function Login(){
         } catch (errors) {
             /** if registering new user returns errors, 
              * append to 'errors' state */
-            setErrors(err => [...err, errors]);
+            setErrors([errors]);
         }
 
         /** Store token into localStorage */
