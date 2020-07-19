@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext }  from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import UserContext from './UserContext';
 
 function NavBar({ handleLogout }){
+
+    /** Global 'currentUser' from 'UserContext.Provider' */
+    const currentUser = useContext(UserContext);
 
     const LoggedInNav = (
         <>
@@ -32,7 +36,7 @@ function NavBar({ handleLogout }){
         <nav className="navbar navbar-expand-md bg-light">
             <Link className="navbar-brand" exact to="/">Jobly</Link>
             <ul className="navbar-nav ml-auto">               
-                { localStorage.getItem('jobly-token') ? LoggedInNav : LoggedOutNav }
+                { currentUser ? LoggedInNav : LoggedOutNav }
             </ul>
         </nav>
     )
