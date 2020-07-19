@@ -39,6 +39,11 @@ class JoblyApi {
       return res.token;
     }
 
+    static async getCurrentUser(username){
+      let res = await this.request(`uers/${username}`);
+      return res.user;
+    }
+
     static async getCompanies(search){
       /** On the backend, our `Company` model has a query that filters
        * the data we receive back, if `search` is passed into the parameters

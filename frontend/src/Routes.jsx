@@ -8,7 +8,7 @@ import Job from './Components/Job';
 import Profile from './Components/Profile';
 import Login from './Components/Login';
 
-function Routes(){
+function Routes({getCurrentUser}){
     return(
         <>
         <Switch>
@@ -31,7 +31,7 @@ function Routes(){
           <Profile />
         </Route>
         <Route exact path="/login">
-          <Login />
+          <Login getCurrentUser={getCurrentUser} />
         </Route>
       </Switch>
       </>
