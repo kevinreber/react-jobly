@@ -93,8 +93,8 @@ function Login(){
                 value={formData.first_name}
                 onChange={handleChange}
             />
-    </div>
-    <div className="form-group">
+        </div>
+        <div className="form-group">
             <label>Last name</label>
             <input
                 name="last_name"
