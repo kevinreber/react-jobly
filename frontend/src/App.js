@@ -24,10 +24,10 @@ function App() {
     }
   }
 
-function handleLogout(){
-  localStorage.removeItem('jobly-token');
-  setCurrentUser(null);
-}
+  function handleLogout(){
+    localStorage.removeItem('jobly-token');
+    setCurrentUser(null);
+  }
 
   return (
     <div className="App">
