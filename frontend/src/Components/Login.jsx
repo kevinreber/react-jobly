@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Alert from './Alert';
 import JoblyApi from '../JoblyApi';
+import UserContext from './UserContext';
 
-function Login(){
+function Login({ getCurrentUser }){
+
+    /** Use history to redirect after user logs in/signs up */
+    const history = useHistory();
 
     /** Initial State for Form */
     const INITIAL_FORM_DATA = {
@@ -17,6 +22,9 @@ function Login(){
     const [ errors, setErrors ] = useState([]);
     const [ activeView, setActiveView ] = useState('login');
     let loginActive = activeView === 'login';
+
+    /** Global 'currentUser' from 'UserContext.Provider' */
+    const currentUser = useContext(UserContext);
 
     /** Toggles which tab of form is active */
     function toggleView(view){
@@ -71,15 +79,18 @@ function Login(){
         try{
             /** store token from API response */
             token = await JoblyApi[endpoint](data);
+
         } catch (errors) {
             /** if registering new user returns errors, 
              * append to 'errors' state */
             setErrors([errors]);
         }
-        /** Store token into localStorage */
-        localStorage.setItem('jobly-token', token);
 
-        /** Get user data to display */
+        /** Store token into localStorage 
+         *  and storage user data in global state*/
+        localStorage.setItem('jobly-token', token);
+        await getCurrentUser();
+        history.push('/jobs');
     }
 
     /** Sign Up Fields */
