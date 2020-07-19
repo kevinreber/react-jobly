@@ -2,11 +2,11 @@ import axios from "axios";
 
 class JoblyApi {
     static async request(endpoint, paramsOrData = {}, verb = "get") {
-      paramsOrData._token = ( 
-        // for now, hardcode token for "testing"
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc" +
-        "3RpbmciLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU1MzcwMzE1M30." +
-        "COmFETEsTxN_VfIlgIKw0bYJLkvbRQNgO1XCSE8NZ0U");
+      // paramsOrData._token = ( 
+      //   // for now, hardcode token for "testing"
+      //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc" +
+      //   "3RpbmciLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU1MzcwMzE1M30." +
+      //   "COmFETEsTxN_VfIlgIKw0bYJLkvbRQNgO1XCSE8NZ0U");
   
       console.debug("API Call:", endpoint, paramsOrData, verb);
   
@@ -30,6 +30,12 @@ class JoblyApi {
     static async register(data){
       let res = await this.request('users', data, 'post');
       /** Store token that is received when registering new User */
+      return res.token;
+    }
+
+    static async login(data){
+      let res = await this.request('login', data, 'post');
+      /** Store token that is received when logging user in */
       return res.token;
     }
 

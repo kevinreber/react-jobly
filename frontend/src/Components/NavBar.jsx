@@ -16,8 +16,8 @@ function NavBar(){
                     <NavLink className="nav-link" exact to="/profile">Profile</NavLink>
                 </li>
                 <li className="nav-item ml-4">
-                { localStorage.getItem('_token') ? 
-                    <NavLink className="nav-link" exact to="/">Log Out</NavLink>
+                { localStorage.getItem('jobly-token') ? 
+                    <NavLink className="nav-link" exact to="/logout">Log Out</NavLink>
                         : 
                     <NavLink className="nav-link" exact to="/login">Log In</NavLink>
                 }

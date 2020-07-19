@@ -45,16 +45,41 @@ function Login(){
     /** Handle submitting form data */
     async function handleSubmit(e){
         e.preventDefault();
+        
+        /** Format data based on if user is signing up or logging in */
+        let data;
+        let endpoint;
+
+        if (activeView === 'signup'){
+            endpoint = 'register';
+            data = {
+                username: formData.username,
+                password: formData.password,
+                first_name: formData.first_name || undefined,
+                last_name: formData.last_name || undefined,
+                email: formData.email || undefined
+            };
+        } else{
+            endpoint = 'login';
+            data = {
+                username: formData.username,
+                password: formData.password
+            };
+        }
+
         let token;
         try{
-            token = await JoblyApi.register(formData);
+            /** store token from API response */
+            token = await JoblyApi[endpoint](data);
         } catch (errors) {
             /** if registering new user returns errors, 
              * append to 'errors' state */
             setErrors([errors]);
         }
-
         /** Store token into localStorage */
+        localStorage.setItem('jobly-token', token);
+
+        /** Get user data to display */
     }
 
     /** Sign Up Fields */
