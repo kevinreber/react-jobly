@@ -30,14 +30,12 @@ function App() {
   }
 
   return (
-    <div className="App">
     <UserContext.Provider value={currentUser}>
-      <NavBar handleLogout={handleLogout} />
-      <main>
-      <Routes getCurrentUser={getCurrentUser} />
-      </main>
+      <div className="App">
+        <NavBar handleLogout={handleLogout} />
+        <Routes getCurrentUser={getCurrentUser} />
+      </div>
     </UserContext.Provider>
-    </div>
   );
 }
 

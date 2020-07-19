@@ -1,6 +1,8 @@
 import React, { useContext }  from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import logo from '../logo.png';
 import UserContext from './UserContext';
+import './NavBar.css';
 
 function NavBar({ handleLogout }){
 
@@ -33,8 +35,8 @@ function NavBar({ handleLogout }){
     );
 
     return(
-        <nav className="navbar navbar-expand-md bg-light">
-            <Link className="navbar-brand" exact to="/">Jobly</Link>
+        <nav className="NavBar navbar navbar-expand-md bg-info">
+            <Link className="navbar-brand Logo-Title Logo-Title-Nav" exact to="/">Dream Jobs <img className="NavBar-Logo" src={logo} alt="Dream Jobs"/></Link>
             <ul className="navbar-nav ml-auto">               
                 { currentUser ? LoggedInNav : LoggedOutNav }
             </ul>

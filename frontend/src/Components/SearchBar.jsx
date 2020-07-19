@@ -34,7 +34,7 @@ function SearchBar({searchFor}){
                     onChange={handleChange}
                 />
                 <div className="input-group-append">
-                    <button className="btn btn-primary" type="submit">Submit</button>
+                    <button className="btn btn-info" type="submit">Submit</button>
                 </div>
             </form>
         </div>

@@ -33,8 +33,8 @@ function Companies(){
     return(
         <>
             <SearchBar searchFor={handleSearch}/>
-            <div className="Companies">
-                <h1>Companies</h1>
+            <div className="Companies text-info">
+                <h1 className="text-info">Companies</h1>
                 {companies.length === 0 ? <p>No companies match search</p> :
                     <div className="CompaniesList container d-flex flex-wrap">
                         {CompaniesList}

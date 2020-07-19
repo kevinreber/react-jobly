@@ -13,7 +13,7 @@ function CompanyCard({company}){
                 <img src={companyLogo} alt={company.name} className="card-img-top rounded-circle border border-dark" />
             </div>
             <div className="card-text ml-auto text-left w-75">
-                <h5 className="card-title text-dark">{company.name}</h5>
+                <h5 className="card-title text-info">{company.name}</h5>
                 <p className="card-text text-secondary">{company.description}</p>
             </div>
         </div>

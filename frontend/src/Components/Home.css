@@ -1,0 +1,11 @@
+.Home{
+    height: calc(100vh - 150px);
+}
+
+.Home h1{
+    font-size: 4.5rem;
+}
+
+.Home img{
+    width: 80px;
+}

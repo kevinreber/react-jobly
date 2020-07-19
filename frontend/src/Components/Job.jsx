@@ -23,7 +23,7 @@ function Job(){
     return(
         <>
             <div className="Job">
-                <h1>{company}</h1>
+                <h1 className="text-info">{company}</h1>
                 { job === {} ? <p>Loading...</p> :
                     <div className="Job container d-flex flex-wrap">
                         <JobCard job={job} />

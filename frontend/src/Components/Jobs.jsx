@@ -29,7 +29,7 @@ function Jobs(){
         <>
             <SearchBar searchFor={handleSearch} />
             <div className="Jobs">
-                <h1>Jobs</h1>
+                <h1 className="text-info">Jobs</h1>
                 {jobs.length === 0 ? <p>No jobs match search</p> :
                     <div className="JobsList container d-flex flex-wrap">
                         {JobsList}

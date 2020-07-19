@@ -158,7 +158,7 @@ function Login({ getCurrentUser }){
 
             <button
                 type="submit"
-                className="btn btn-primary float-right"
+                className="btn btn-info float-right"
             >
             Submit
             </button>
@@ -167,18 +167,18 @@ function Login({ getCurrentUser }){
 
 
     return(
-        <div className="Login">
+        <div className="Login pt-5 text-info">
             <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
                 <div className="d-flex justify-content-end">
                     <div className="btn-group">
                     <button
-                        className={`btn btn-primary ${loginActive ? "active" : ""} `}
+                        className={`btn btn-info ${loginActive ? "active" : ""} `}
                         onClick={toggleLoginView}
                     >
                         Login
                     </button>
                     <button
-                        className={`btn btn-primary ${loginActive ? "" : "active"} `}
+                        className={`btn btn-info ${loginActive ? "" : "active"} `}
                         onClick={toggleSignupView}
                     >
                         Sign up

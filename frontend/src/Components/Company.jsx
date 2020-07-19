@@ -36,7 +36,7 @@ function Company(){
 
     return(
         <div className="Company">
-            <h1 className="Company-Title p-3">{company.name}</h1>
+            <h1 className="Company-Title p-3 text-info">{company.name}</h1>
             <div className="JobList container d-flex flex-wrap">
                 {jobList}
             </div>
