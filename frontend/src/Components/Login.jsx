@@ -97,7 +97,7 @@ function Login({ getCurrentUser }){
     const signupFields = (
         <div>
         <div className="form-group">
-            <label>First name</label>
+            <label className="float-left">First name</label>
             <input
                 name="first_name"
                 className="form-control"
@@ -106,7 +106,7 @@ function Login({ getCurrentUser }){
             />
         </div>
         <div className="form-group">
-            <label>Last name</label>
+            <label className="float-left">Last name</label>
             <input
                 name="last_name"
                 className="form-control"
@@ -115,7 +115,7 @@ function Login({ getCurrentUser }){
             />
         </div>
         <div className="form-group">
-            <label>Email</label>
+            <label className="float-left">Email</label>
             <input
                 type="email"
                 name="email"
@@ -131,7 +131,7 @@ function Login({ getCurrentUser }){
     const LoginForm = (
         <form onSubmit={handleSubmit}>
             <div className="form-group">
-            <label>Username</label>
+            <label className="float-left">Username</label>
             <input
                 name="username"
                 className="form-control"
@@ -140,7 +140,7 @@ function Login({ getCurrentUser }){
             />
             </div>
             <div className="form-group">
-            <label>Password</label>
+            <label className="float-left">Password</label>
             <input
                 type="password"
                 name="password"
