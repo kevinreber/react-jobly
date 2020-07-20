@@ -1,9 +1,22 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
+import { Link, useHistory } from "react-router-dom";
+import UserContext from './UserContext';
 import logo from '../logo.png';
 import './Home.css';
 
 function Home(){
+
+    /** Use history to redirect after user logs in/signs up */
+    const history = useHistory();
+
+    /** Global 'currentUser' from 'UserContext.Provider' */
+    const { currentUser }= useContext(UserContext);
+
+    /** Direct user to '/companies' page if logged in */
+    if(currentUser){
+        history.push('/companies');
+    }
+
     return(
         <div className="Home d-flex align-items-center pt-5">
             <div className="Home-Content container align-self-center">
