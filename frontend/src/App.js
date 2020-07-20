@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { decode } from "jsonwebtoken";
 import NavBar from './Components/NavBar';
-import Routes from './Routes';
-import JoblyApi from './JoblyApi';
+import Routes from './routes/Routes';
+import Api from './api/Api';
 import useLocalStorageToken from './Hooks/useLocalStorageToken';
 import UserContext from './Components/UserContext';
 import './App.css';
@@ -21,7 +21,7 @@ function App() {
           let { username } = decode(token);
           
           /** Get User Data and store into state */
-          let user = await JoblyApi.getCurrentUserData(username);
+          let user = await Api.getCurrentUserData(username);
           setCurrentUser(user);
         } catch (error) {
           console.log(error);
@@ -36,7 +36,7 @@ function App() {
   async function signup(data){
     try{
       /** store token from API response */
-      const token = await JoblyApi.register(data);
+      const token = await Api.register(data);
 
       /** Store token into localStorage */
       setToken(token);
@@ -49,7 +49,7 @@ function App() {
   async function login(data){
     try{
       /** store token from API response */
-      const token = await JoblyApi.login(data);
+      const token = await Api.login(data);
 
       /** Store token into localStorage */
       setToken(token);

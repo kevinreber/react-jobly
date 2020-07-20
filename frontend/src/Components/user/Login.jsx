@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import Alert from './Alert';
-import UserContext from './UserContext';
+import Alert from '../Alert';
+import UserContext from '../UserContext';
 
 function Login({ signup, login }){
 

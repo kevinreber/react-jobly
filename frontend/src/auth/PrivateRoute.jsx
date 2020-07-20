@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import UserContext from './UserContext';
+import UserContext from '../Components/UserContext';
 
 function PrivateRoute({ path, component }){
     /** User must be logged in, in order to access Private Routes */

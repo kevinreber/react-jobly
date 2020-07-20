@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import JobsCard from './JobsCard';
-import JoblyApi from '../JoblyApi';
+import JobsCard from '../jobs/JobsCard';
+import Api from '../../api/Api';
 
 function Company(){
     const [company, setCompany] = useState({});
@@ -16,7 +16,7 @@ function Company(){
     /** Get company data */
     useEffect(() =>{
         const getData = async () => {
-            const results = await JoblyApi.getCompany(handle);
+            const results = await Api.getCompany(handle);
             setCompany(results);
             setIsLoading(false);
         }

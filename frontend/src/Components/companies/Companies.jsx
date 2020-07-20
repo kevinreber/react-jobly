@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import CompanyCard from './CompanyCard';
-import SearchBar from './SearchBar';
-import JoblyApi from '../JoblyApi';
+import SearchBar from '../SearchBar';
+import Api from '../../api/Api';
 
 function Companies(){
 
@@ -11,7 +11,7 @@ function Companies(){
         
         /** Get all Companies Data */
         const getData = async () => {
-            const results = await JoblyApi.getCompanies();
+            const results = await Api.getCompanies();
             setCompanies(results);
         }
         getData();
@@ -21,7 +21,7 @@ function Companies(){
      *  On the backend we have filter query that will handle our search.
     */
     const handleSearch = async (search) => {
-        const results = await JoblyApi.getCompanies(search);
+        const results = await Api.getCompanies(search);
         setCompanies(results);
     }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './JobsCard.css';
+import './style/JobsCard.css';
 
 function JobsCard({job}){
     

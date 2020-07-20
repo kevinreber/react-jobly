@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Home from './Components/Home';
-import Companies from './Components/Companies';
-import Company from './Components/Company';
-import Jobs from './Components/Jobs';
-import Job from './Components/Job';
-import Profile from './Components/Profile';
-import Login from './Components/Login';
-import PrivateRoute from './Components/PrivateRoute';
+import Home from '../Components/Home';
+import Companies from '../Components/companies/Companies';
+import Company from '../Components/companies/Company';
+import Jobs from '../Components/jobs/Jobs';
+import Job from '../Components/jobs/Job';
+import Profile from '../Components/user/Profile';
+import Login from '../Components/user/Login';
+import PrivateRoute from '../auth/PrivateRoute';
 
 function Routes({ signup, login }){
     return(

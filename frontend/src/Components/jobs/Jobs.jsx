@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import JobsCard from './JobsCard';
-import SearchBar from './SearchBar';
-import JoblyApi from '../JoblyApi';
+import SearchBar from '../SearchBar';
+import Api from '../../api/Api';
 
 function Jobs(){
     const [jobs, setJobs] = useState([]);
@@ -9,14 +9,14 @@ function Jobs(){
     useEffect( () => {
         /** Get all Jobs Data */
         const getData = async () => {
-            const results = await JoblyApi.getJobs();
+            const results = await Api.getJobs();
             setJobs(results);
         }
         getData();
     }, [])
 
     const handleSearch = async (search) =>{
-       const results = await JoblyApi.getJobs(search);
+       const results = await Api.getJobs(search);
        setJobs(results);
     }
 

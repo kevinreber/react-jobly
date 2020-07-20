@@ -4,5 +4,6 @@
 
 .CompanyCard img{
     max-width: 64px;
+    max-height: 64px;
     margin: 1rem auto;
 }
