@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Alert from './Alert';
-import JoblyApi from '../JoblyApi';
 import UserContext from './UserContext';
 
-function Login({ getCurrentUser }){
+function Login({ signup, login }){
 
     /** Use history to redirect after user logs in/signs up */
     const history = useHistory();
@@ -24,7 +23,12 @@ function Login({ getCurrentUser }){
     let loginActive = activeView === 'login';
 
     /** Global 'currentUser' from 'UserContext.Provider' */
-    const currentUser = useContext(UserContext);
+    const { currentUser }= useContext(UserContext);
+
+    /** If user is logged in, redirect to '/jobs' page */
+    if (currentUser){
+        history.push('/jobs');
+    }
 
     /** Toggles which tab of form is active */
     function toggleView(view){
@@ -56,10 +60,8 @@ function Login({ getCurrentUser }){
         
         /** Format data based on if user is signing up or logging in */
         let data;
-        let endpoint;
 
-        if (activeView === 'signup'){
-            endpoint = 'register';
+        if (activeView === 'signup'){    
             data = {
                 username: formData.username,
                 password: formData.password,
@@ -67,30 +69,24 @@ function Login({ getCurrentUser }){
                 last_name: formData.last_name || undefined,
                 email: formData.email || undefined
             };
-        } else{
-            endpoint = 'login';
+        } else {
             data = {
                 username: formData.username,
                 password: formData.password
             };
         }
 
-        let token;
         try{
-            /** store token from API response */
-            token = await JoblyApi[endpoint](data);
+            activeView === 'signup' ? await signup(data) : login(data);
 
+            /** Direct user to '/jobs' after successful sign in */ 
+            history.push('/jobs'); 
         } catch (errors) {
+
             /** if registering new user returns errors, 
              * append to 'errors' state */
             setErrors([errors]);
         }
-
-        /** Store token into localStorage 
-         *  and storage user data in global state*/
-        localStorage.setItem('jobly-token', token);
-        await getCurrentUser();
-        history.push('/jobs');
     }
 
     /** Sign Up Fields */
@@ -164,7 +160,6 @@ function Login({ getCurrentUser }){
             </button>
         </form>
     )
-
 
     return(
         <div className="Login pt-5 text-info">

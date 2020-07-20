@@ -1,39 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { decode } from "jsonwebtoken";
 import NavBar from './Components/NavBar';
 import Routes from './Routes';
 import JoblyApi from './JoblyApi';
+import useLocalStorageToken from './Hooks/useLocalStorageToken';
 import UserContext from './Components/UserContext';
 import './App.css';
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState(null);
+  const [ token, setToken ] = useLocalStorageToken();
+  const [ currentUser, setCurrentUser ]  = useState(null);
 
-  /** Check if user is logged in */
-  async function getCurrentUser(){
-    const token = localStorage.getItem('jobly-token');
-    let user;
+  useEffect(function checkUserData() {
+
+    /** Check if user is logged in */
+    async function getCurrentUser(){
+      if (token){
+        try{
+          let { username } = decode(token);
+          
+          /** Get User Data and store into state */
+          let user = await JoblyApi.getCurrentUserData(username);
+          setCurrentUser(user);
+        } catch (error) {
+          console.log(error);
+          setCurrentUser(null);
+        }
+      }
+    };
+
+    getCurrentUser();
+  }, [token, setToken])
+
+  async function signup(data){
     try{
-      let { username } = decode(token);
-      console.log(username);
-      user = await JoblyApi.getCurrentUserData(username);
-      setCurrentUser(user);
-    } catch (error) {
-      console.log(error);
+      /** store token from API response */
+      const token = await JoblyApi.register(data);
+
+      /** Store token into localStorage */
+      setToken(token);
+
+    } catch (errors) {
+      return errors;
+    }
+  }
+
+  async function login(data){
+    try{
+      /** store token from API response */
+      const token = await JoblyApi.login(data);
+
+      /** Store token into localStorage */
+      setToken(token);
+
+    } catch (errors) {
+      return errors;
     }
   }
 
   function handleLogout(){
-    localStorage.removeItem('jobly-token');
+    setToken(null);
     setCurrentUser(null);
   }
 
   return (
-    <UserContext.Provider value={currentUser}>
+    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
       <div className="App">
         <NavBar handleLogout={handleLogout} />
-        <Routes getCurrentUser={getCurrentUser} />
+        <Routes signup={signup} login={login} />
       </div>
     </UserContext.Provider>
   );

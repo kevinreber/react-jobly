@@ -9,7 +9,7 @@ import Profile from './Components/Profile';
 import Login from './Components/Login';
 import PrivateRoute from './Components/PrivateRoute';
 
-function Routes({ getCurrentUser }){
+function Routes({ signup, login }){
     return(
         <>
         <Switch>
@@ -19,7 +19,7 @@ function Routes({ getCurrentUser }){
         <PrivateRoute exact path="/jobs/:id" component={Job} />
         <PrivateRoute exact path="/profile" component={Profile} />
         <Route exact path="/login">
-          <Login getCurrentUser={getCurrentUser} />
+          <Login signup={signup} login={login} />
         </Route>
         <Route exact path="/" component={Home} />
         <Redirect to="/login" />
