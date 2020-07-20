@@ -36,16 +36,6 @@ function Jobs(){
 
     /** Build a Card to display each Job */
     const JobsList = <JobList jobs={jobs} apply={apply} />;
-    // jobs.map(job => (
-    //     <JobCard 
-    //         id={job.id}
-    //         title={job.title} 
-    //         salary={job.salary}
-    //         equity={job.equity}
-    //         appliedState={job.state}
-    //         apply={apply} 
-    //     />
-    // ))
     
     if (!jobs) {
         return <p>Loading...</p>

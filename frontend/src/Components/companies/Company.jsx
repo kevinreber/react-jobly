@@ -8,9 +8,6 @@ function Company(){
     const [jobs, setJobs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    /** Will store `jobList` of company's jobs */
-    let jobList;
-
     /** Get handle */
     const { handle } = useParams();
 
@@ -24,10 +21,6 @@ function Company(){
         }
         getData();
     }, []);
-
-    if (isLoading) {
-        return <h3>Loading...</h3>;
-    }
 
     async function apply (id) {
         const message = await Api.applyToJob(id);
@@ -43,10 +36,8 @@ function Company(){
         )
     }
 
-    /** Build `jobList` when loading company data is finished */
-    if(!isLoading){
-        jobList = <JobList jobs={jobs} apply={apply} />
-    }
+    /** Build `jobList` when loading company data is finished */    
+    let jobList = isLoading ? <h3>Loading...</h3> : <JobList jobs={jobs} apply={apply} />
 
     return(
         <div className="Company">
