@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import JoblyApi from '../JoblyApi';
+import Alert from './Alert';
 import UserContext from './UserContext';
 
 function Profile(){
@@ -15,6 +17,11 @@ function Profile(){
     }
 
     const [ formData, setFormData ] = useState(INITIAL_STATE);
+    const [ errors, setErrors ] = useState([]);
+
+    /** 'saveSuccess' will be used to toggle the Alert for 
+     * a user's successful save */
+    const [ saveSuccess, setSaveSuccess ] = useState(false);
 
     const handleChange = e => {
         const  { name, value } = e.target;
@@ -24,11 +31,39 @@ function Profile(){
             }));
     }
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        let data;
-        
+    const clearState = () => {
+        setSaveSuccess(false);
+        formData.password = '';
+    }
 
+    const handleSubmit = async e => {
+        e.preventDefault();
+
+        try{
+            const data ={
+                first_name: formData.first_name || undefined,
+                last_name: formData.last_name || undefined,
+                email: formData.email || undefined,
+                photo_url: formData.photo_url || undefined,
+                password: formData.password
+            };
+
+            const username = currentUser.username;
+            
+            /** Update user profile */
+            await JoblyApi.saveProfile(username, data);
+
+            /** Clear any Errors */
+            setErrors([]);
+
+            /** Show 'Success' Alert */
+            setSaveSuccess(true);
+
+            /** Clear State after 1 second */
+            setTimeout (clearState, 2000);
+        } catch (error) {
+            setErrors( e => [...e, error]);
+        }
     }
 
     return(
@@ -61,6 +96,8 @@ function Profile(){
                         <label className="text-info">Re-enter Password</label>
                         <input className="form-control" type="password" name="password" value={formData.password} onChange={handleChange}/>
                     </div>
+                    {errors.length > 0 ? <Alert type="danger" messages={errors}/> : null}
+                    {saveSuccess ? <Alert type="success" messages={["Save Successful!"]}/> : null}
                     <div className="form-group">
                         <button className="btn btn-info w-100" type="submit">Save Changes</button>
                     </div>
