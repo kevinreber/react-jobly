@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import CompanyCard from './CompanyCard';
-import SearchBar from '../SearchBar';
+import SearchBar from '../general/SearchBar';
 import Api from '../../api/Api';
 
 function Companies(){

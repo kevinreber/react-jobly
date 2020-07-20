@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import JoblyApi from '../../api/Api';
-import Alert from '../Alert';
+import Alert from '../general/Alert';
 import UserContext from '../UserContext';
 
 function Profile(){
