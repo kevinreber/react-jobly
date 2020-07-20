@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import JobCard from './JobCard';
+import UserContext from '../UserContext';
 import Api from '../../api/Api';
 
 function Job(){
+
+    /** Global 'currentUser' from 'UserContext.Provider' */
+    const { currentUser } = useContext(UserContext);
 
     const [job, setJob] = useState({});
     const [company, setCompany] = useState('');
@@ -12,7 +16,17 @@ function Job(){
     useEffect( () => {
         /** Get all Jobs Data */
         const getData = async () => {
+            // Jobs => Array of job ids that user applied to 
+            const { jobs } = currentUser;
+            const jobsApplied = jobs.map(job => job.id);
+
             const results = await Api.getJob(id);
+            
+            // Check if Job has already been applied to
+            if (jobsApplied.includes(results.id)){
+                results.state = 'applied';
+            }
+
             setJob(results);
             setCompany(results.company.name);
         }
@@ -20,7 +34,6 @@ function Job(){
     }, [])
 
     async function apply(id) {
-        console.log('applying');
         const message = await Api.applyToJob(id);
         // message => "applied" if post request is successful
         setJob(job =>
