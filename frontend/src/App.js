@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { decode } from "jsonwebtoken";
-import NavBar from './Components/NavBar';
+import NavBar from './Components/navigation/NavBar';
 import Routes from './routes/Routes';
 import Api from './api/Api';
 import useLocalStorageToken from './Hooks/useLocalStorageToken';
@@ -40,9 +40,11 @@ function App() {
 
       /** Store token into localStorage */
       setToken(token);
+      return {success: true};
 
     } catch (errors) {
-      return errors;
+      console.error("signup failed", errors);
+      return {success: false, errors}
     }
   }
 
@@ -53,9 +55,11 @@ function App() {
 
       /** Store token into localStorage */
       setToken(token);
+      return {success: true};
 
     } catch (errors) {
-      return errors;
+      console.error("login failed", errors);
+      return {success: false, errors}
     }
   }
 

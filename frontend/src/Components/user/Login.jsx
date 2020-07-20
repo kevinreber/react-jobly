@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import Alert from '../Alert';
+import Alert from '../general/Alert';
 import UserContext from '../UserContext';
 
 function Login({ signup, login }){
@@ -18,7 +18,7 @@ function Login({ signup, login }){
     }
 
     const [ formData, setFormData ] = useState(INITIAL_FORM_DATA);
-    const [ errors, setErrors ] = useState([]);
+    const [ errors, setErrors ] = useState('');
     const [ activeView, setActiveView ] = useState('login');
     let loginActive = activeView === 'login';
 
@@ -57,9 +57,14 @@ function Login({ signup, login }){
     /** Handle submitting form data */
     async function handleSubmit(e){
         e.preventDefault();
-        
-        /** Format data based on if user is signing up or logging in */
+        // Clear any past errors
+        setErrors('');
+
+        /** Format data based on if user is signing up or logging in 
+         *  and store response
+        */
         let data;
+        let resp;
 
         if (activeView === 'signup'){    
             data = {
@@ -69,25 +74,27 @@ function Login({ signup, login }){
                 last_name: formData.last_name || undefined,
                 email: formData.email || undefined
             };
+
+            resp = await signup(data)
         } else {
             data = {
                 username: formData.username,
                 password: formData.password
             };
+
+            resp = await login(data);
         }
 
-        try{
-            activeView === 'signup' ? await signup(data) : login(data);
-
-            /** Direct user to '/jobs' after successful sign in */ 
-            history.push('/jobs'); 
-        } catch (errors) {
-
+        /** Direct user to '/companies' after successful sign in */ 
+        if(resp.success){
+            history.push('/companies'); 
+        } else {
             /** if registering new user returns errors, 
              * append to 'errors' state */
-            setErrors([errors]);
-        }
+            setErrors(resp.errors);
+        }   
     }
+
 
     /** Sign Up Fields */
     const signupFields = (
