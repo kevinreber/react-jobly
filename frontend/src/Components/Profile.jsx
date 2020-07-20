@@ -6,7 +6,7 @@ import UserContext from './UserContext';
 function Profile(){
 
     /** Global 'currentUser' from 'UserContext.Provider' */
-    const currentUser = useContext(UserContext);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
 
     const INITIAL_STATE = {
         first_name: currentUser.first_name,
@@ -51,7 +51,8 @@ function Profile(){
             const username = currentUser.username;
             
             /** Update user profile */
-            await JoblyApi.saveProfile(username, data);
+            const updatedCurrentUser = await JoblyApi.saveProfile(username, data);
+            setCurrentUser(updatedCurrentUser);
 
             /** Clear any Errors */
             setErrors([]);

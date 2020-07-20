@@ -7,7 +7,7 @@ import './NavBar.css';
 function NavBar({ handleLogout }){
 
     /** Global 'currentUser' from 'UserContext.Provider' */
-    const currentUser = useContext(UserContext);
+    const { currentUser } = useContext(UserContext);
 
     const LoggedInNav = (
         <>
