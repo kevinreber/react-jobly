@@ -1,10 +1,11 @@
 import React, { useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import JobsCard from '../jobs/JobsCard';
+import JobList from '../jobs/JobList';
 import Api from '../../api/Api';
 
 function Company(){
     const [company, setCompany] = useState({});
+    const [jobs, setJobs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     /** Will store `jobList` of company's jobs */
@@ -13,11 +14,12 @@ function Company(){
     /** Get handle */
     const { handle } = useParams();
 
-    /** Get company data */
+    /** Get company and jobs data */
     useEffect(() =>{
         const getData = async () => {
             const results = await Api.getCompany(handle);
             setCompany(results);
+            setJobs(results.jobs)
             setIsLoading(false);
         }
         getData();
@@ -27,11 +29,23 @@ function Company(){
         return <h3>Loading...</h3>;
     }
 
+    async function apply (id) {
+        const message = await Api.applyToJob(id);
+        /** add application status message to job state 
+         *  message => "applied" if post request is successful
+        */
+        setJobs(jobs => 
+            jobs.map(job => 
+                job.id === id 
+                    ? {...job, state: message}
+                    : job
+            )
+        )
+    }
+
     /** Build `jobList` when loading company data is finished */
     if(!isLoading){
-        jobList = company.jobs.map(job => (
-            <JobsCard job={job} />
-        ));
+        jobList = <JobList jobs={jobs} apply={apply} />
     }
 
     return(

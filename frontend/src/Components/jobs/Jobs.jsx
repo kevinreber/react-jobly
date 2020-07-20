@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import JobsCard from './JobsCard';
+import JobList from './JobList';
 import SearchBar from '../SearchBar';
 import Api from '../../api/Api';
 
@@ -15,16 +15,42 @@ function Jobs(){
         getData();
     }, [])
 
-    const handleSearch = async (search) =>{
+    const handleSearch = async (search) => {
        const results = await Api.getJobs(search);
        setJobs(results);
     }
 
+    async function apply (id) {
+        const message = await Api.applyToJob(id);
+        /** add application status message to job state 
+         *  message => "applied" if post request is successful
+        */
+        setJobs(jobs => 
+            jobs.map(job => 
+                job.id === id 
+                    ? {...job, state: message}
+                    : job
+            )
+        )
+    }
+
     /** Build a Card to display each Job */
-    const JobsList = jobs.map(job => (
-        <JobsCard job={job} />
-    ))
+    const JobsList = <JobList jobs={jobs} apply={apply} />;
+    // jobs.map(job => (
+    //     <JobCard 
+    //         id={job.id}
+    //         title={job.title} 
+    //         salary={job.salary}
+    //         equity={job.equity}
+    //         appliedState={job.state}
+    //         apply={apply} 
+    //     />
+    // ))
     
+    if (!jobs) {
+        return <p>Loading...</p>
+    }
+
     return(
         <>
             <SearchBar searchFor={handleSearch} />

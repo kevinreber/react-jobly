@@ -19,6 +19,14 @@ function Job(){
         getData();
     }, [])
 
+    async function apply(id) {
+        console.log('applying');
+        const message = await Api.applyToJob(id);
+        // message => "applied" if post request is successful
+        setJob(job =>
+          job.id === id ? {...job, state: message} : job
+        )
+    }
 
     return(
         <>
@@ -26,7 +34,14 @@ function Job(){
                 <h1 className="text-info">{company}</h1>
                 { job === {} ? <p>Loading...</p> :
                     <div className="Job container d-flex flex-wrap">
-                        <JobCard job={job} />
+                    <JobCard 
+                        id={job.id}
+                        title={job.title} 
+                        salary={job.salary}
+                        equity={job.equity}
+                        appliedState={job.state}
+                        apply={apply} 
+                    />
                     </div>
                  }
 

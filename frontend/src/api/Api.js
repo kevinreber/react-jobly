@@ -62,6 +62,11 @@ class JoblyApi {
       return res.job;
   }
 
+  static async applyToJob(id){
+    let res = await this.request(`jobs/${id}/apply`, {}, 'post');
+    return res.message;
+  }
+
   static async saveProfile(username, data){
     let res = await this.request(`users/${username}`, data, 'patch');
     return res.user;
