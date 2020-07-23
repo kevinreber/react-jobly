@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import UserContext from '../Components/UserContext';
 
+/** Will only allow access to certain routes based on User's credentials */
 function PrivateRoute({ path, component }){
     /** User must be logged in, in order to access Private Routes */
     const { currentUser } = useContext(UserContext);
