@@ -1,5 +1,5 @@
 <h1 align="center">
-Dream Jobs <img src="frontend/src/images/logo.png" alt="logo" style="width:25px;">
+Dream Jobs <img src="frontend/src/images/logo.png" alt="logo" width=25>
 </h1>
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ca917803-c709-4744-9444-5e1abf0f49ee/deploy-status)](https://app.netlify.com/sites/gallant-leakey-b85924/deploys)
